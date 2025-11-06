@@ -10,10 +10,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.bashar.abnrepositories.R
+import com.bashar.abnrepositories.src.core.ui.theme.WestMoscow
 
 @Composable
 fun RepoDetailsScreen(
@@ -50,7 +53,7 @@ fun RepoDetailContent(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Repository Details") },
+                title = { Text(stringResource(R.string.repo_details), fontFamily = WestMoscow) },
                 navigationIcon = {
                     IconButton(onClick = { onEvent(RepoDetailEvent.OnBackPress) }) {
                         Icon(
@@ -86,11 +89,13 @@ fun RepoDetailContent(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        AsyncImage(
-                            model = repo.ownerAvatar,
-                            contentDescription = "Owner avatar",
-                            modifier = Modifier.size(64.dp)
-                        )
+                        Surface (shape = MaterialTheme.shapes.large){
+                            AsyncImage(
+                                model = repo.ownerAvatar,
+                                contentDescription = "Owner",
+                                modifier = Modifier.size(64.dp)
+                            )
+                        }
                         Spacer(Modifier.width(12.dp))
                         Column {
                             Text(repo.name, style = MaterialTheme.typography.titleLarge)
@@ -98,7 +103,7 @@ fun RepoDetailContent(
                         }
                     }
 
-                    Divider()
+                    HorizontalDivider()
 
                     repo.description?.let {
                         Text(
@@ -127,7 +132,7 @@ fun RepoDetailContent(
                         onClick = { onEvent(RepoDetailEvent.OnOpenInBrowser) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Open in Browser")
+                        Text(stringResource(R.string.open_in_browser))
                     }
                 }
             }

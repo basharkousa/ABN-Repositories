@@ -15,5 +15,6 @@
     <string name="preferences">Voorkeuren</string>
     <string name="code">Code</string>
     <string name="abn_amro_repos">ABN AMRO Opslagplaatsen</string>
-
+    <string name="repo_details">Opslagplaats Details</string>
+    <string name="open_in_browser">Openen in Browser</string>
 </resources>
