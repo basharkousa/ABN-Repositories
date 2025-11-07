@@ -21,7 +21,7 @@ class RepoListViewModel @Inject constructor(
         loadRepos()
     }
 
-    private fun loadRepos(){
+    private fun loadRepos() {
         _state.update {
             it.copy(
                 repos = repository.pagedRepos(pageSize = 5).cachedIn(viewModelScope),
@@ -31,22 +31,17 @@ class RepoListViewModel @Inject constructor(
         }
     }
 
+
     fun onEvent(event: RepoListEvent) {
         when (event) {
             is RepoListEvent.OnRefresh -> {
                 _state.update { it.copy(isLoading = true) }
                 loadRepos()
             }
-
-            is RepoListEvent.OnRepoClick -> {
-                // You’ll handle navigation externally
+            is RepoListEvent.OnRetry -> {
+                loadRepos()
             }
-
-            RepoListEvent.OnNavigateToSetting ->{
-
-            }
-
-            is RepoListEvent.OnRetry -> loadRepos()
+            else -> {}
         }
     }
 }

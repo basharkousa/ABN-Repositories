@@ -58,9 +58,7 @@ fun MyAppNavigator(
             composable(Screen.RepoListScreenRoute.route) {
                 RepoListScreen(
                     onNavigateToDetail = { repo ->
-                        Log.d("RepoListScreen", "onEvent: ${repo}")
                         navController.navigate(Screen.RepoDetailsScreen.sendRepo(repo))
-//                        navController.navigate(Screen.RepoDetailsScreen.route + "/${repo.name}")
                     },
                     onNavigateToSetting = {
                         navController.navigate(Screen.SettingScreenRoute.route)

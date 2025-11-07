@@ -15,5 +15,6 @@
     <string name="abn_amro_repos">ABN AMRO Repos</string>
     <string name="repo_details">Repository Details</string>
     <string name="open_in_browser">Open in Browser</string>
+    <string name="retry">Retry</string>
 
 </resources>

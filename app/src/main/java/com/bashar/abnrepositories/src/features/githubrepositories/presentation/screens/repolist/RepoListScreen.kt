@@ -34,7 +34,6 @@ fun RepoListScreen(
         onEvent = { event ->
             when (event) {
                 is RepoListEvent.OnRepoClick -> {
-
                     onNavigateToDetail(event.repo)
                 }
 
@@ -81,88 +80,11 @@ fun RepoListContent(
             isRefreshing = state.isLoading,
             pagingItems = pagingItems,
             onRefresh = { onEvent(RepoListEvent.OnRefresh) },
-            onRetry = { onEvent(RepoListEvent.OnRetry) }
+            onRetry = { onEvent(RepoListEvent.OnRetry) },
         ) { repo ->
             RepoItem(repo) {
                 onEvent(RepoListEvent.OnRepoClick(repo))
             }
         }
-
-
-        /*        PullToRefreshBox(
-                    isRefreshing = state.isRefreshing,
-                    state = pullRefreshState,
-                    onRefresh = { onEvent(RepoListEvent.OnRefresh) },) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(padding)
-                    ) {
-                        val refreshState = pagingItems.loadState.refresh
-
-                        when (refreshState) {
-                            is LoadState.Loading -> if (pagingItems.itemCount == 0) LoadingStateWidget()
-                            is LoadState.Error -> ErrorStateWidget(
-                                refreshState.error.localizedMessage ?: "Error"
-                            ) {
-                                onEvent(RepoListEvent.OnRetry)
-                            }
-
-                            else -> {}
-                        }
-
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(12.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            items(pagingItems.itemCount, key = { it }) { index ->
-                                val repo = pagingItems[index]
-                                repo?.let {
-                                    RepoItem(repo) {
-                                        onEvent(RepoListEvent.OnRepoClick(repo.id, repo.fullName))
-                                    }
-                                }
-                            }
-                            when (val append = pagingItems.loadState.append) {
-                                is LoadState.Loading -> item { ListFooterLoadingWidget() }
-                                is LoadState.Error -> item { ListFooterErrorWidget { onEvent(RepoListEvent.OnRetry) } }
-                                else -> {}
-                            }
-                        }
-
-                    }
-                }*/
-
-
     }
 }
-
-
-@Composable
-private fun LoadingStateWidget() =
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularProgressIndicator()
-    }
-
-@Composable
-private fun ErrorStateWidget(message: String, onRetry: () -> Unit) =
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(message)
-            Spacer(Modifier.height(8.dp))
-            Button(onClick = onRetry) { Text("Retry") }
-        }
-    }
-
-@Composable
-private fun ListFooterLoadingWidget() =
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        CircularProgressIndicator(modifier = Modifier.padding(16.dp))
-    }
-
-@Composable
-private fun ListFooterErrorWidget(onRetry: () -> Unit) =
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        TextButton(onClick = onRetry) { Text("Retry loading more") }
-    }

@@ -3,26 +3,20 @@ package com.bashar.abnrepositories.src.core.ui.widgets.sections
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.bashar.abnrepositories.R
 
-/**
- * Generic pagination + pull-to-refresh section.
- *
- * Uses the new PullToRefreshBox() from Material3.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T : Any> PaginatedSection(
@@ -42,7 +36,6 @@ fun <T : Any> PaginatedSection(
     ) {
         Box(Modifier.fillMaxSize()) {
             val refreshState = pagingItems.loadState.refresh
-
             when (refreshState) {
                 is LoadState.Loading -> if (pagingItems.itemCount == 0) {
                     LoadingStateWidget()
@@ -53,25 +46,28 @@ fun <T : Any> PaginatedSection(
                     onRetry = onRetry
                 )
 
-                else -> {}
+                else -> LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = contentPadding,
+                    verticalArrangement = verticalArrangement
+                ) {
+                    items(pagingItems.itemCount, key = { it.hashCode() }) { index ->
+                        val item = pagingItems[index]
+                        if (item != null) itemContent(item)
+                    }
+                    when (val append = pagingItems.loadState.append) {
+                        is LoadState.Loading -> item { ListFooterLoadingWidget() }
+                        is LoadState.Error -> item {
+                            ListFooterErrorWidget({
+                                pagingItems.retry()
+                            })
+                        }
+
+                        else -> {}
+                    }
+                }
             }
 
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = contentPadding,
-                verticalArrangement = verticalArrangement
-            ) {
-                items(pagingItems.itemCount, key = { it.hashCode() }) { index ->
-                    val item = pagingItems[index]
-                    if (item != null) itemContent(item)
-                }
-
-                when (val append = pagingItems.loadState.append) {
-                    is LoadState.Loading -> item { ListFooterLoadingWidget() }
-                    is LoadState.Error -> item { ListFooterErrorWidget(onRetry) }
-                    else -> {}
-                }
-            }
         }
     }
 }
@@ -91,18 +87,18 @@ private fun LoadingStateWidget() =
 
 @Composable
 private fun ErrorStateWidget(message: String, onRetry: () -> Unit) =
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(message)
             Spacer(Modifier.height(8.dp))
-            Button(onClick = onRetry) { Text("Retry") }
+            Button(onClick = onRetry) { Text(stringResource(R.string.retry)) }
         }
     }
 
 @Composable
 private fun ListFooterErrorWidget(onRetry: () -> Unit) =
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        TextButton(onClick = onRetry) { Text("Retry loading more") }
+        TextButton(onClick = onRetry) { Icon(Icons.Default.Refresh, null) }
     }
 
 
