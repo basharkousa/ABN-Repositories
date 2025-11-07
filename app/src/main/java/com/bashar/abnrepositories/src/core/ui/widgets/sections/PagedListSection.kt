@@ -45,7 +45,6 @@ fun <T : Any> PaginatedSection(
                     message = refreshState.error.localizedMessage ?: "Error occurred",
                     onRetry = onRetry
                 )
-
                 else -> LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = contentPadding,
@@ -55,7 +54,7 @@ fun <T : Any> PaginatedSection(
                         val item = pagingItems[index]
                         if (item != null) itemContent(item)
                     }
-                    when (val append = pagingItems.loadState.append) {
+                    when (pagingItems.loadState.append) {
                         is LoadState.Loading -> item { ListFooterLoadingWidget() }
                         is LoadState.Error -> item {
                             ListFooterErrorWidget({
