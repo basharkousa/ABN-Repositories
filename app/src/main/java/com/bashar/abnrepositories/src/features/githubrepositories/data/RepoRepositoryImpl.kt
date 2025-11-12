@@ -34,10 +34,11 @@ class RepoRepositoryImpl @Inject constructor(
         val pagingSourceFactory = { db.repoDao().pagingSource() }
         return Pager(
             config = PagingConfig(
-                initialLoadSize = pageSize * 2,
+//                initialLoadSize = 5,
                 pageSize = pageSize,
 //                prefetchDistance = pageSize / 2
                 prefetchDistance = 1
+//                prefetchDistance = pageSize
             ),
             remoteMediator = RepoRemoteMediator(api, db, pageSize),
             pagingSourceFactory = pagingSourceFactory
