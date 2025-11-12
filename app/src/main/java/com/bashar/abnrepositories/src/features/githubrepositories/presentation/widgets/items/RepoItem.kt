@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.Repo
 
-@Preview(showBackground = true)
+@Preview(showBackground = true,uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun RepoItem(repo: Repo = Repo(
     id = 111
@@ -30,41 +30,41 @@ fun RepoItem(repo: Repo = Repo(
     isPrivate = false
     ,description = "Repo Description"
     ,visibility = "Public"
-    , htmlUrl = "https://github.com/ALi/Repo Name"
+    , htmlUrl = "https://github.com/ALi/Repo Name",
 ) , onClick: () -> Unit = {}) {
     Surface(
-        shape = MaterialTheme.shapes.small,
-        shadowElevation = 1.dp,
-        tonalElevation = 1.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-    ) {
-        Row(
-            Modifier.padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+            shape = MaterialTheme.shapes.small,
+            shadowElevation = 1.dp,
+            tonalElevation = 1.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
         ) {
-            Surface (shape = MaterialTheme.shapes.large) {
-                AsyncImage(
-                    model = repo.ownerAvatar,
-                    contentDescription = "Avatar",
-                    modifier = Modifier.size(48.dp)
-                )
-            }
-            Spacer(Modifier.width(12.dp))
-            Column(Modifier.weight(1f)) {
-                Text(text = repo.name, style = MaterialTheme.typography.titleMedium)
+            Row(
+                Modifier.padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface (shape = MaterialTheme.shapes.large) {
+                    AsyncImage(
+                        model = repo.ownerAvatar,
+                        contentDescription = "Avatar",
+                        modifier = Modifier.size(48.dp)
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(text = repo.name, style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        text = repo.fullName,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                    )
+                }
                 Text(
-                    text = repo.fullName,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                    text = if (repo.isPrivate) "Private" else "Public",
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
-            Text(
-                text = if (repo.isPrivate) "Private" else "Public",
-                style = MaterialTheme.typography.bodySmall
-            )
         }
-    }
 }

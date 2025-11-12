@@ -18,4 +18,5 @@
     <string name="repo_details">Opslagplaats Details</string>
     <string name="open_in_browser">Openen in Browser</string>
     <string name="retry">Opnieuw proberen</string>
+    <string name="no_items">No Items</string>
 </resources>

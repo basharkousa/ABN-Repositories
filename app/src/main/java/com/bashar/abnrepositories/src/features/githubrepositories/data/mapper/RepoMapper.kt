@@ -1,6 +1,6 @@
 package com.bashar.abnrepositories.src.features.githubrepositories.data.mapper
 
-import com.bashar.abnrepositories.src.features.githubrepositories.data.model.RepoDto
+import com.bashar.abnrepositories.src.features.githubrepositories.data.remote.model.RepoDto
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.Repo
 
 
@@ -13,5 +13,5 @@ fun RepoDto.toDomain() = Repo(
     description = description,
     htmlUrl = htmlUrl,
     ownerAvatar = owner.avatarUrl,
-    ownerName = owner.login
+    ownerName = owner.login,
 )

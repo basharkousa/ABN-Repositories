@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bashar.abnrepositories.src.core.utils.fromJson
-import com.bashar.abnrepositories.src.features.githubrepositories.domain.RepoRepository
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +21,6 @@ class RepoDetailsViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(RepoDetailsState())
     val state = _state.asStateFlow()
-
-
 
     init {
         _state.update {

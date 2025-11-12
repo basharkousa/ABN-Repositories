@@ -1,6 +1,6 @@
 package com.bashar.abnrepositories.src.features.githubrepositories.data.remote
 
-import com.bashar.abnrepositories.src.features.githubrepositories.data.model.RepoDto
+import com.bashar.abnrepositories.src.features.githubrepositories.data.remote.model.RepoDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

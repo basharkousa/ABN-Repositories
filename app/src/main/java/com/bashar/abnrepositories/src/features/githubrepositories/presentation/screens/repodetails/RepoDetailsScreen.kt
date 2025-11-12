@@ -23,8 +23,6 @@ fun RepoDetailsScreen(
     viewModel: RepoDetailsViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val context = LocalContext.current
-
 
     RepoDetailContent(
         state = state,
@@ -36,7 +34,7 @@ fun RepoDetailsScreen(
                         onOpenInBrowser(it)
                     }
                 }
-                else -> {}
+
             }
         }
     )

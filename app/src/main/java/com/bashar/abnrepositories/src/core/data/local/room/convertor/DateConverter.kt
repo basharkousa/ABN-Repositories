@@ -1,6 +1,5 @@
 package com.bashar.abnrepositories.src.core.data.local.room.convertor
 
-/*
 import androidx.room.TypeConverter
 import java.util.*
 
@@ -37,14 +36,4 @@ class DateConverter {
         }
         return intList
     }
-
-//    @TypeConverter
-//    fun toProfile(profileJson: String): Profile? {
-//        return <Create a Profile object out of a JSON string>
-//    }
-//
-//    @TypeConverter
-//    fun fromProfile(profile: Profile?): String {
-//        return <JSON string representation of Profile object>
-//    }
-}*/
+}

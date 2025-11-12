@@ -1,4 +1,4 @@
-package com.bashar.abnrepositories.src.features.githubrepositories.data.model
+package com.bashar.abnrepositories.src.features.githubrepositories.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -21,7 +21,7 @@ class RepoListViewModel @Inject constructor(
         loadRepos()
     }
 
-    private fun loadRepos() {
+    private fun loadRepos(){
         _state.update {
             it.copy(
                 repos = repository.pagedRepos(pageSize = 5).cachedIn(viewModelScope),
