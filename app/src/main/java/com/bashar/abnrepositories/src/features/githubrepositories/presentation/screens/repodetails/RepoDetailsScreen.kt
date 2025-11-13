@@ -7,7 +7,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -74,7 +73,7 @@ fun RepoDetailContent(
                     .fillMaxSize()
                     .padding(padding),
                 contentAlignment = Alignment.Center
-            ) { Text(state.error ?: "Error") }
+            ) { Text(state.error) }
 
             else -> state.repo?.let { repo ->
                 Column(
@@ -113,10 +112,6 @@ fun RepoDetailContent(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        AssistChip(
-                            onClick = {},
-                            label = { Text(if (repo.isPrivate) "Private" else "Public") }
-                        )
                         AssistChip(
                             onClick = {},
                             label = { Text(repo.visibility) }

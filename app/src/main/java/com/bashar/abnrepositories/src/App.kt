@@ -56,10 +56,10 @@ fun MyApp(vm: SettingsViewModel = hiltViewModel(), content: @Composable () -> Un
             color = MaterialTheme.colorScheme.background
         ) {
             Column {
-                MyAppNavigator(navController, navigatorBottomNavigation, modifier = Modifier)
+                MyAppNavigator(navController, navigatorBottomNavigation,)
                 Surface {
 
-                    BackHandler(enabled = (currentRoute(navController) === Screen.MainScreenRoute.route)) {
+                    BackHandler(enabled = (currentRoute(navController) === Screen.RepoListScreenRoute.route)) {
 
                         val currentTime = System.currentTimeMillis()
                         println("currentTime: $currentTime")

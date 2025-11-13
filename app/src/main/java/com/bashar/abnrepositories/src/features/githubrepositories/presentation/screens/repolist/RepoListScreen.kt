@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -60,6 +59,8 @@ fun RepoListContent(
         },
         floatingActionButton = {
             FloatingActionButton(
+                containerColor = MaterialTheme.colorScheme.primary,
+//                containerColor = MaterialTheme.colorScheme.onBackground,
                 onClick = {
                     onEvent(RepoListEvent.OnNavigateToSetting)
                 }) {

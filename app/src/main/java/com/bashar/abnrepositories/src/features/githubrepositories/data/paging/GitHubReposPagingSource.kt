@@ -9,7 +9,7 @@ import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.R
 
 class GitHubReposPagingSource(
     private val api: GitHubApi,
-    private val pageSize: Int = 10
+    private val pageSize: Int = 5
 ) : PagingSource<Int, Repo>() {
 
     override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {

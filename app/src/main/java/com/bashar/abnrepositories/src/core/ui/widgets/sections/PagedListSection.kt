@@ -45,7 +45,6 @@ fun <T : Any> PaginatedSection(
     var wasOffline by remember { mutableStateOf(false) }
 
     LaunchedEffect(isConnected) {
-//        Toast.makeText(context,"isConnected $isConnected",Toast.LENGTH_SHORT ).show()
         if (isConnected && wasOffline) {
             // trigger refresh when connection comes back
             pagingItems.retry()

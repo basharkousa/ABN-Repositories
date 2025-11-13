@@ -15,12 +15,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.bashar.abnrepositories.src.core.ui.widgets.topbars.DefaultTppBar
 import com.bashar.abnrepositories.src.features.setting.domain.models.Language
 import com.bashar.abnrepositories.src.features.setting.domain.models.ThemeMode
-import com.bashar.abnrepositories.src.core.ui.widgets.items.ChevronItem
 import com.bashar.abnrepositories.R
 import com.bashar.abnrepositories.src.core.ui.widgets.Refreshable
 import com.bashar.abnrepositories.src.features.setting.presentation.widgets.dialogs.LanguagePickerDialog
 import com.bashar.abnrepositories.src.features.setting.presentation.widgets.dialogs.ThemePickerDialog
-import com.bashar.abnrepositories.src.features.setting.presentation.widgets.items.SwitchItem
 import com.bashar.abnrepositories.src.features.setting.presentation.widgets.items.ValueItem
 import com.bashar.abnrepositories.src.core.ui.widgets.sections.CardSection
 
@@ -28,9 +26,6 @@ import com.bashar.abnrepositories.src.core.ui.widgets.sections.CardSection
 @Composable
 fun SettingScreen(
     onBack: () -> Unit = {},
-    onOpenNotifications: () -> Unit = {},
-    onChangePassword: () -> Unit = {},
-    onOpenPolicy: () -> Unit = {},
     vm: SettingsViewModel = hiltViewModel()
 ) {
     val state by vm.state.collectAsState()

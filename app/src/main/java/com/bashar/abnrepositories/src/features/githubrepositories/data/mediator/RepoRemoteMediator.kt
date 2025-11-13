@@ -34,22 +34,20 @@ class RepoRemoteMediator(
                     // Look up the next page key from the dedicated table
                     val remoteKeys = db.repoRemoteKeysDao().remoteKeyByRepoId(REPO_LIST_KEY)
                     // If remoteKeys is null, it means REFRESH hasn't run successfully yet
-                    remoteKeys?.nextKey ?: 1 // Default to 1, though Paging should wait
+                    remoteKeys?.nextKey ?: 1
                 }
             }
 
-//            val perPage =
-//                if (loadType == LoadType.REFRESH) state.config.initialLoadSize else pageSize
             val perPage = pageSize
             val response = api.getRepos(page = page, perPage = perPage)
 
             val endOfPaginationReached = response.isEmpty()
 
             db.withTransaction {
-                // --- 2. Clear both Repos and RemoteKeys on REFRESH ---
+                // 2 Clear both Repos and RemoteKeys on REFRESH
                 if (loadType == LoadType.REFRESH) {
                     db.repoDao().clearAll()
-                    db.repoRemoteKeysDao().clearRemoteKeys() // Clear the key too
+                    db.repoRemoteKeysDao().clearRemoteKeys()
                 }
 
                 val startIndex = db.repoDao().count()
@@ -58,7 +56,7 @@ class RepoRemoteMediator(
                 }
                 db.repoDao().insertAll(repoEntities)
 
-                // --- 3. Save the key for the next load ---
+                // 3. Save the key for the next load
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = RepoRemoteKeys(repoId = REPO_LIST_KEY, nextKey = nextKey)
                 db.repoRemoteKeysDao().insertOrReplace(keys)
