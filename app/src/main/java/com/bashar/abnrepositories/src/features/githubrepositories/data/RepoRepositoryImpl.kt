@@ -9,6 +9,7 @@ import androidx.paging.map
 import com.bashar.abnrepositories.src.core.data.local.room.RepoDatabase
 import com.bashar.abnrepositories.src.features.githubrepositories.data.local.toDomain
 import com.bashar.abnrepositories.src.features.githubrepositories.data.mediator.RepoRemoteMediator
+import com.bashar.abnrepositories.src.features.githubrepositories.data.paging.GitHubReposPagingSource
 import com.bashar.abnrepositories.src.features.githubrepositories.data.remote.GitHubApi
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.RepoRepository
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.Repo
@@ -26,11 +27,11 @@ class RepoRepositoryImpl @Inject constructor(
     //This without cashing
 /*    override fun pagedRepos(pageSize: Int): Flow<PagingData<Repo>> =
          Pager(
-//            config = PagingConfig(pageSize = pageSize, prefetchDistance = pageSize / 2),
             config = PagingConfig( pageSize = pageSize, prefetchDistance = pageSize/2),
             pagingSourceFactory = { GitHubReposPagingSource(api, pageSize) }
         ).flow*/
 
+    //This with cashing
     @OptIn(ExperimentalPagingApi::class)
     override fun pagedRepos(pageSize: Int): Flow<PagingData<Repo>> {
         val pagingSourceFactory = { db.repoDao().pagingSource() }
