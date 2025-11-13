@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.Repo
-import com.bashar.abnrepositories.src.features.githubrepositories.presentation.widgets.widgets.RepoAvatar
+import com.bashar.abnrepositories.src.features.githubrepositories.presentation.widgets.RepoAvatar
 
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable

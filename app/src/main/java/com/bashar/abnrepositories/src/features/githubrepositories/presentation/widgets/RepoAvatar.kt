@@ -1,4 +1,4 @@
-package com.bashar.abnrepositories.src.features.githubrepositories.presentation.widgets.widgets
+package com.bashar.abnrepositories.src.features.githubrepositories.presentation.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
