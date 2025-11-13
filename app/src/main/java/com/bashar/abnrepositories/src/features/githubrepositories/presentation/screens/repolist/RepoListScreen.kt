@@ -1,18 +1,13 @@
 package com.bashar.abnrepositories.src.features.githubrepositories.presentation.screens.repolist
 
-
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.bashar.abnrepositories.src.core.ui.widgets.sections.PaginatedSection
@@ -20,7 +15,6 @@ import com.bashar.abnrepositories.src.features.githubrepositories.presentation.w
 import com.bashar.abnrepositories.R
 import com.bashar.abnrepositories.src.core.ui.theme.WestMoscow
 import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.Repo
-import timber.log.Timber
 
 @Composable
 fun RepoListScreen(
@@ -54,7 +48,6 @@ fun RepoListContent(
     onEvent: (RepoListEvent) -> Unit
 ) {
     val pagingItems = state.repos.collectAsLazyPagingItems()
-    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -79,7 +72,8 @@ fun RepoListContent(
             modifier = Modifier.padding(padding),
             isRefreshing = state.isLoading,
             pagingItems = pagingItems,
-            onRefresh = { onEvent(RepoListEvent.OnRefresh) },
+            onRefresh = {
+                onEvent(RepoListEvent.OnRefresh) },
             onRetry = { onEvent(RepoListEvent.OnRetry) },
         ) { repo ->
             RepoItem(repo) {

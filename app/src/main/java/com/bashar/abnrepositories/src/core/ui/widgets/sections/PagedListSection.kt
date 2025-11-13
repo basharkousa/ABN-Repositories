@@ -57,7 +57,10 @@ fun <T : Any> PaginatedSection(
 
     PullToRefreshBox(
         isRefreshing = isRefreshing,
-        onRefresh = onRefresh,
+        onRefresh = {
+            onRefresh()
+            pagingItems.refresh()
+        },
         modifier = modifier.fillMaxSize()
     ) {
         Box(Modifier.fillMaxSize()) {
@@ -86,7 +89,6 @@ fun <T : Any> PaginatedSection(
                             verticalArrangement = verticalArrangement
                         ) {
                             items(pagingItems.itemCount, key ={ index ->
-//                                (pagingItems[index] as? Repo)?.remoteIndex  ?: index
                                 index
                             }) { index ->
                                 val item = pagingItems[index]
@@ -97,9 +99,9 @@ fun <T : Any> PaginatedSection(
                                 is LoadState.Error -> item {
                                     ListFooterErrorWidget({
                                         pagingItems.retry()
+                                        onRetry()
                                     })
                                 }
-
                                 else -> {}
                             }
                         }
@@ -130,6 +132,7 @@ private fun LoadingStateWidget() =
         CircularProgressIndicator()
     }
 
+//To use when working only with api without cashing!!
 @Composable
 private fun ErrorStateWidget(message: String, onRetry: () -> Unit) =
     Box(Modifier

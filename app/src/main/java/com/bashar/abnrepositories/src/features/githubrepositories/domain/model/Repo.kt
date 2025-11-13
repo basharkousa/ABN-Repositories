@@ -12,7 +12,7 @@ data class Repo(
     val description: String?,
     val htmlUrl: String,
     val ownerAvatar: String?,
-    val ownerName: String?
+    val ownerName: String?,
 ){
     override fun toString(): String = Uri.encode(Gson().toJson(this))
 }

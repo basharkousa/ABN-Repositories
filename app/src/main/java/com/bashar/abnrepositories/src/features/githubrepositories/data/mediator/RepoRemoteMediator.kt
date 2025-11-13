@@ -38,8 +38,9 @@ class RepoRemoteMediator(
                 }
             }
 
-            val perPage = if (loadType == LoadType.REFRESH) state.config.initialLoadSize else pageSize
-
+//            val perPage =
+//                if (loadType == LoadType.REFRESH) state.config.initialLoadSize else pageSize
+            val perPage = pageSize
             val response = api.getRepos(page = page, perPage = perPage)
 
             val endOfPaginationReached = response.isEmpty()
@@ -72,7 +73,7 @@ class RepoRemoteMediator(
 //            if (hasCache) {
 //                 MediatorResult.Success(endOfPaginationReached = false)
 //            } else {
-                 MediatorResult.Error(ioe)
+            MediatorResult.Error(ioe)
 //            }
 
         } catch (he: HttpException) {

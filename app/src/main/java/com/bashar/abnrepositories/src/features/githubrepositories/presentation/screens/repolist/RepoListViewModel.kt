@@ -14,6 +14,8 @@ class RepoListViewModel @Inject constructor(
     private val repository: RepoRepository
 ) : ViewModel() {
 
+
+
     private val _state = MutableStateFlow(RepoListState())
     val state = _state.asStateFlow()
 
@@ -35,11 +37,11 @@ class RepoListViewModel @Inject constructor(
     fun onEvent(event: RepoListEvent) {
         when (event) {
             is RepoListEvent.OnRefresh -> {
-                _state.update { it.copy(isLoading = true) }
-                loadRepos()
+//                _state.update { it.copy(isLoading = true) }
+//                loadRepos()
             }
             is RepoListEvent.OnRetry -> {
-                loadRepos()
+//                loadRepos()
             }
             else -> {}
         }
