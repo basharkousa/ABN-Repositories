@@ -50,6 +50,7 @@ dependencies {
 
 // ----- Compose (via BOM) -----
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.ui)
@@ -115,10 +116,19 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // Compose UI tests (no version thanks to BOM)
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation(libs.androidx.ui.test.junit4)
 
     // Debug test tooling
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Coroutines test
+    testImplementation(libs.kotlinx.coroutines.test)
+// Mockito for mocking
+//    testImplementation("org.mockito:mockito-core:5.20.0")
+//    testImplementation("org.mockito.kotlin:mockito-kotlin:6.1.0")
+
+//// Room in-memory DB for tests
+//    testImplementation("androidx.room:room-testing:2.8.4")
 }
 
 // Room schema location for KSP (keeps JSON schemas under projectDir/schemas)

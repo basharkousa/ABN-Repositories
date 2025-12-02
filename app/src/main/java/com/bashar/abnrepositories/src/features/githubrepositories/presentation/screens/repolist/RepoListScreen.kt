@@ -7,7 +7,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.bashar.abnrepositories.src.core.ui.widgets.sections.PaginatedSection
 import com.bashar.abnrepositories.src.features.githubrepositories.presentation.widgets.items.RepoItem
@@ -19,9 +18,9 @@ import com.bashar.abnrepositories.src.features.githubrepositories.domain.model.R
 fun RepoListScreen(
     onNavigateToDetail: (repo: Repo) -> Unit,
     onNavigateToSetting: () -> Unit,
-    viewModel: RepoListViewModel = hiltViewModel()
+    state: RepoListState,
+    onEvent: (RepoListEvent) -> Unit,
 ) {
-    val state by viewModel.state.collectAsState()
     RepoListContent(
         state = state,
         onEvent = { event ->
@@ -34,7 +33,7 @@ fun RepoListScreen(
                     onNavigateToSetting()
                 }
 
-                else -> viewModel.onEvent(event)
+                else -> onEvent(event)
             }
         }
     )

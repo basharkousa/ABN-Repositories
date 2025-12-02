@@ -3,6 +3,7 @@ package com.bashar.abnrepositories.src.core.navigation
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -18,6 +19,8 @@ import com.bashar.abnrepositories.src.features.githubrepositories.presentation.s
 import com.bashar.abnrepositories.src.features.setting.presentation.screens.SettingScreen
 import com.bashar.abnrepositories.src.features.splash.presentation.SplashScreen
 import androidx.core.net.toUri
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.bashar.abnrepositories.src.features.githubrepositories.presentation.screens.repolist.RepoListViewModel
 
 val LocalNavController = compositionLocalOf<NavHostController>() {
 //    navController
@@ -44,7 +47,10 @@ fun MyAppNavigator(
             }
 
             composable(Screen.RepoListScreenRoute.route) {
+                val viewModel = hiltViewModel<RepoListViewModel>()
                 RepoListScreen(
+                    state = viewModel.state.collectAsState().value,
+                    onEvent = viewModel::onEvent,
                     onNavigateToDetail = { repo ->
                         navController.navigate(Screen.RepoDetailsScreen.sendRepo(repo))
                     },
